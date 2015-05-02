@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">Clean Watchface</string>
+    <string name="in_progress">In progress…</string>
+<string name="starts_in">Starts in </string>
+    <string name="all_day">All day</string>
+    <string name="no_events_today">No events today</string>
+
+</resources>

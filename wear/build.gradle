@@ -1,0 +1,55 @@
+apply plugin: 'com.android.application'
+
+
+android {
+    compileSdkVersion 22
+    buildToolsVersion "21.1.2"
+
+    defaultConfig {
+        applicationId "com.ivankocijan.cleanwatchface"
+        minSdkVersion 21
+        targetSdkVersion 22
+        versionCode 3
+        versionName "1.0"
+    }
+
+    signingConfigs {
+        release
+    }
+
+    buildTypes {
+        debug {
+
+            debuggable true
+            minifyEnabled false
+            signingConfig signingConfigs.release
+
+        }
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.release
+        }
+
+    }
+
+    /**
+     * @See http://www.thoughtworks.com/insights/blog/signing-open-source-android-apps-without-disclosing-passwords
+     */
+    def props = new Properties()
+    props.load(new FileInputStream(rootProject.file("keystore.properties")))
+    android.signingConfigs.release.storeFile rootProject.file(props.keyStore)
+    android.signingConfigs.release.storePassword props.keyStorePassword
+    android.signingConfigs.release.keyAlias props.keyAlias
+    android.signingConfigs.release.keyPassword props.keyAliasPassword
+
+
+
+}
+
+dependencies {
+    compile fileTree(dir: 'libs', include: ['*.jar'])
+    compile 'com.google.android.support:wearable:1.1.0'
+    compile 'com.google.android.gms:play-services-wearable:7.3.0'
+    compile 'net.danlew:android.joda:2.7.2'
+}
